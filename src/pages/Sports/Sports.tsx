@@ -1,5 +1,4 @@
 import React from "react";
-import type { CSSProperties } from "react";
 
 const Sports = () => {
   const sports = [
@@ -8,139 +7,232 @@ const Sports = () => {
     { name: "Squash", seasons: ["Mostly All Year Round", "Mainly Fall and Winter"] },
   ];
 
-  // Photos shown around the table (you can swap these URLs for your own)
   const photos = [
-    {
-      src: "assets/Yuki.png",
-      alt: "Volleyball",
-    },
-    {
-      src: "assets/BigMike.png",
-      alt: "Swimming",
-    },
-    {
-      src: "assets/squash.png",
-      alt: "Squash",
-    },
+    { src: "assets/Yuki.png", alt: "Volleyball" },
+    { src: "assets/BigMike.png", alt: "Swimming" },
+    { src: "assets/squash.png", alt: "Squash" },
   ];
 
-  const styles = {
-    container: {
-      width: "100vw",
-      minHeight: "100vh",
-      margin: 0,
-      padding: "40px",
-      background: "#111827",
-      borderRadius: 0,
-      boxSizing: "border-box",
-      fontSize: 34,
-      lineHeight: 1.35,
-    },
-    title: {
-      color: "#ffffff",
-      margin: "0 0 24px",
-      fontSize: 64,
-      fontWeight: 800,
-    },
-
-    // photos around the table
-    photoRow: {
-      display: "flex",
-      gap: 20,
-      marginBottom: 22,
-      flexWrap: "wrap",
-    },
-    photo: {
-      flex: "1 1 320px",
-      height: 220,
-      width: "100%",
-      objectFit: "cover",
-      borderRadius: 16,
-      border: "2px solid rgba(255,255,255,0.25)",
-    },
-
-    tableWrap: {
-      borderRadius: 16,
-      overflow: "hidden",
-      border: "2px solid rgba(255,255,255,0.18)",
-    },
-    table: {
-      width: "100%",
-      borderCollapse: "collapse",
-      tableLayout: "fixed",
-    },
-    th: {
-      textAlign: "left",
-      padding: "22px 26px",
-      color: "#ffffff",
-      background: "rgba(255,255,255,0.06)",
-      borderBottom: "3px solid rgba(255,255,255,0.35)",
-      fontWeight: 800,
-      fontSize: 38,
-    },
-    td: {
-      textAlign: "left",
-      padding: "22px 26px",
-      color: "#ffffff",
-      background: "transparent",
-      borderBottom: "2px solid rgba(255,255,255,0.18)",
-      verticalAlign: "top",
-      wordBreak: "break-word",
-      fontSize: 36,
-    },
-    colSport: { width: "40%" },
-    colSeasons: { width: "60%" },
-
-    // photos below the table too
-    photoRowBottom: {
-      display: "flex",
-      gap: 20,
-      marginTop: 22,
-      flexWrap: "wrap",
-    },
-  } satisfies Record<string, CSSProperties>;
-
   return (
-    <div style={styles.container}>
-      <h1 style={styles.title}>Sports Page</h1>
+    <div className="sp-container">
+      <style>{`
+        .sp-container{
+          width:100%;
+          min-height:100vh;
+          margin:0;
+          padding:40px;
+          background:#111827;
+          box-sizing:border-box;
+          color:#fff;
+          font-size:clamp(16px, 2.2vw, 34px);
+          line-height:1.35;
+        }
 
-      {/* Photos above the table */}
-      <div style={styles.photoRow}>
-        {photos.map((p) => (
-          <img key={p.alt} src={p.src} alt={p.alt} style={styles.photo} />
-        ))}
-      </div>
+        .sp-inner{
+          max-width: 1100px;
+          margin: 0 auto;
+        }
 
-      <div style={styles.tableWrap}>
-        <table style={styles.table}>
-          <thead>
-            <tr>
-              <th style={{ ...styles.th, ...styles.colSport }}>Sport</th>
-              <th style={{ ...styles.th, ...styles.colSeasons }}>Seasons</th>
-            </tr>
-          </thead>
+        .sp-title{
+          margin:0 0 24px;
+          font-size:clamp(34px, 5vw, 64px);
+          font-weight:800;
+          letter-spacing: .2px;
+        }
 
-          <tbody>
-            {sports.map((sport) => (
-              <tr key={sport.name}>
-                <td style={{ ...styles.td, ...styles.colSport }}>{sport.name}</td>
-                <td style={{ ...styles.td, ...styles.colSeasons }}>
-                  {sport.seasons.join(", ")}
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
+        .sp-photoRow{
+          display:flex;
+          gap:20px;
+          margin-bottom:22px;
+          flex-wrap:wrap;
+        }
 
-      {/* Photos below the table */}
-      <div style={styles.photoRowBottom}>
-        {photos
-          .slice()
-          .reverse()
-          .map((p) => (
-            <img key={p.alt + "-bottom"} src={p.src} alt={p.alt} style={styles.photo} />
+        .sp-photo{
+          flex:1 1 260px;
+          width:100%;
+          height:220px;
+          object-fit:cover;
+          border-radius:16px;
+          border:2px solid rgba(255,255,255,0.25);
+        }
+
+        .sp-tableWrap{
+          border-radius:16px;
+          overflow:hidden;
+          border:2px solid rgba(255,255,255,0.18);
+        }
+
+        .sp-table{
+          width:100%;
+          border-collapse:collapse;
+          table-layout:fixed;
+        }
+
+        .sp-th{
+          text-align:left;
+          padding:22px 26px;
+          color:#ffffff;
+          background:rgba(255,255,255,0.06);
+          border-bottom:3px solid rgba(255,255,255,0.35);
+          font-weight:800;
+          font-size:clamp(18px, 2.6vw, 38px);
+        }
+
+        .sp-td{
+          text-align:left;
+          padding:22px 26px;
+          color:#ffffff;
+          background:transparent;
+          border-bottom:2px solid rgba(255,255,255,0.18);
+          vertical-align:top;
+          word-break:break-word;
+          font-size:clamp(16px, 2.4vw, 36px);
+        }
+
+        .sp-photoRowBottom{
+          display:flex;
+          gap:20px;
+          margin-top:22px;
+          flex-wrap:wrap;
+        }
+
+        @media (max-width: 900px){
+          .sp-container{ padding:24px; }
+          .sp-photo{ height:180px; border-radius:14px; }
+          .sp-th, .sp-td{ padding:16px 16px; }
+        }
+
+        /* phone: align Sport + Seasons side-by-side inside each row card */
+        @media (max-width: 640px){
+          .sp-container{ padding:16px; }
+
+          .sp-title{
+            margin: 2px 0 14px;
+            font-size: clamp(30px, 8vw, 40px);
+            line-height: 1.05;
+          }
+
+          .sp-photoRow, .sp-photoRowBottom{
+            gap:12px;
+            margin-bottom: 14px;
+            margin-top: 14px;
+          }
+
+          .sp-photo{
+            flex:1 1 100%;
+            height:auto;
+            aspect-ratio: 16 / 9;
+            border-radius:18px;
+            border:1px solid rgba(255,255,255,0.18);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.35);
+          }
+
+          .sp-tableWrap{
+            border:none;
+            border-radius:0;
+            overflow: visible;
+          }
+
+          .sp-table thead{ display:none; }
+
+          .sp-table, .sp-table tbody, .sp-table tr, .sp-table td{
+            display:block;
+            width:100%;
+          }
+
+          .sp-table tr{
+            margin: 12px 0;
+            border: 1px solid rgba(255,255,255,0.14);
+            border-radius: 18px;
+            overflow: hidden;
+            background: linear-gradient(180deg, rgba(255,255,255,0.06), rgba(255,255,255,0.03));
+            box-shadow: 0 14px 36px rgba(0,0,0,0.35);
+
+            display:grid;
+            grid-template-columns: minmax(120px, 34%) 1fr;
+            align-items: start;
+          }
+
+          .sp-td{
+            width:auto !important;
+            border-bottom: 0;
+            padding: 14px 14px;
+            font-size: clamp(16px, 4.2vw, 19px);
+            line-height: 1.25;
+          }
+
+          .sp-td::before{ content: none; display:none; }
+
+          .sp-td[data-label="Sport"]{
+            font-weight: 900;
+            color: #93C5FD;
+          }
+
+          .sp-td[data-label="Seasons"]{
+            border-left: 1px solid rgba(255,255,255,0.12);
+            color: rgba(229,231,235,0.92);
+          }
+
+          @media (max-width: 420px){
+            .sp-table tr{ grid-template-columns: 1fr; }
+            .sp-td[data-label="Seasons"]{
+              border-left: 0;
+              border-top: 1px solid rgba(255,255,255,0.12);
+            }
+          }
+        }
+      `}</style>
+
+      <div className="sp-inner">
+        <h1 className="sp-title">Sports Page</h1>
+
+        <div className="sp-photoRow">
+          {photos.map((p) => (
+            <img key={p.alt} src={p.src} alt={p.alt} className="sp-photo" />
           ))}
+        </div>
+
+        <div className="sp-tableWrap">
+          <table className="sp-table">
+            <thead>
+              <tr>
+                <th className="sp-th" style={{ width: "40%" }}>
+                  Sport
+                </th>
+                <th className="sp-th" style={{ width: "60%" }}>
+                  Seasons
+                </th>
+              </tr>
+            </thead>
+
+            <tbody>
+              {sports.map((s) => (
+                <tr key={s.name}>
+                  <td className="sp-td" data-label="Sport" style={{ width: "40%" }}>
+                    {s.name}
+                  </td>
+                  <td className="sp-td" data-label="Seasons" style={{ width: "60%" }}>
+                    {s.seasons.join(", ")}
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+
+        <div className="sp-photoRowBottom">
+          {photos
+            .slice()
+            .reverse()
+            .map((p) => (
+              <img
+                key={p.alt + "-bottom"}
+                src={p.src}
+                alt={p.alt}
+                className="sp-photo"
+              />
+            ))}
+        </div>
       </div>
     </div>
   );
