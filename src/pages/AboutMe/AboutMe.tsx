@@ -11,25 +11,22 @@ import {
 
 type InfoCardProps = {
   title: string;
-  value: string;
+  value: string; // can be plain text OR a URL
   leftImg?: string;
 };
 
 function InfoCard({ title, value, leftImg }: InfoCardProps) {
+  const isUrl = /^https?:\/\//i.test(value);
+
   return (
     <Card
       sx={{
         borderRadius: { xs: 2, sm: 3 },
         overflow: "hidden",
         boxShadow: { xs: 1, sm: 2 },
-
-        // key: make card stretch and layout consistent
         height: "100%",
         display: "flex",
         flexDirection: "column",
-
-        // optional: force all cards to the same height across the whole page
-        // (tweak numbers to what looks best)
         minHeight: { xs: 160, sm: 190, md: 220 },
       }}
     >
@@ -39,8 +36,6 @@ function InfoCard({ title, value, leftImg }: InfoCardProps) {
           pb: { xs: 0.5, sm: 1 },
           pt: { xs: 1.25, sm: 2 },
           px: { xs: 2, sm: 3 },
-
-          // keeps header height consistent
           minHeight: { xs: 56, sm: 64, md: 72 },
         }}
         titleTypographyProps={{
@@ -55,8 +50,6 @@ function InfoCard({ title, value, leftImg }: InfoCardProps) {
           pt: { xs: 1.25, sm: 2 },
           pb: { xs: 2, sm: 3 },
           px: { xs: 2, sm: 3 },
-
-          // makes content fill remaining space so cards match heights
           flexGrow: 1,
           display: "flex",
           alignItems: "center",
@@ -83,8 +76,12 @@ function InfoCard({ title, value, leftImg }: InfoCardProps) {
           ) : null}
 
           <Typography
+            component={isUrl ? "a" : "span"}
+            href={isUrl ? value : undefined}
+            target={isUrl ? "_blank" : undefined}
+            rel={isUrl ? "noopener noreferrer" : undefined}
             sx={{
-              color: "text.secondary",
+              color: isUrl ? "primary.main" : "text.secondary",
               fontWeight: 700,
               fontSize: { xs: "1.15rem", sm: "1.4rem", md: "1.85rem" },
               lineHeight: 1.2,
@@ -95,6 +92,8 @@ function InfoCard({ title, value, leftImg }: InfoCardProps) {
               overflow: "hidden",
               textOverflow: "ellipsis",
               wordBreak: "break-word",
+              textDecoration: isUrl ? "underline" : "none",
+              cursor: isUrl ? "pointer" : "default",
             }}
           >
             {value}
@@ -123,18 +122,22 @@ const AboutMe = () => {
       value: "Gym Geek, Movie Lover, and a Tutor",
       leftImg: "assets/car.png",
     },
+    {
+      title: "LinkedIn",
+      value: "https://www.linkedin.com/in/jonathan-pham-083b27331/",
+      leftImg: "assets/Link.png",
+    },
+    {
+      title: "Github",
+      value: "https://github.com/PhammyWammy",
+      leftImg: "assets/Git.png",
+    },
   ];
 
   return (
     <Grid container spacing={{ xs: 2, sm: 2.5, md: 3 }} alignItems="stretch">
       {cards.map((c) => (
-        <Grid
-          item
-          key={c.title}
-          xs={12}
-          sm={6}
-          sx={{ display: "flex" }} // key: makes the Card stretch to equal height
-        >
+        <Grid item key={c.title} xs={12} sm={6} sx={{ display: "flex" }}>
           <InfoCard {...c} />
         </Grid>
       ))}
