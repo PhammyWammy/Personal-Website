@@ -6,6 +6,7 @@ const TableofContents = () => {
     { name: "About Me", facts: ["Basics Facts of my Life"], path: "/" },
     { name: "Sports", facts: ["Sports I'm currently doing"], path: "/sports" },
     { name: "Academics", facts: ["My Favorite Subjects"], path: "/academics" },
+    { name: "Resume", facts: ["View Resume"], path: "/resume" },
   ];
 
   return (
@@ -71,7 +72,6 @@ const TableofContents = () => {
           font-size: 30px;
         }
 
-        /* Mobile/iPad improvements */
         @media (max-width: 900px) {
           .tocTh { font-size: clamp(16px, 3.4vw, 22px); padding: 16px 16px; }
           .tocTd { font-size: clamp(14px, 3.2vw, 20px); padding: 14px 16px; }
@@ -79,7 +79,6 @@ const TableofContents = () => {
           .tocContains { font-size: clamp(13px, 3.1vw, 18px); }
         }
 
-        /* Phone-friendly: keep "table format", but stack cells per row (card style) */
         @media (max-width: 640px) {
           .tocTable, thead, tbody, tr, th, td { display: block; width: 100%; }
           thead { display: none; }
@@ -112,18 +111,14 @@ const TableofContents = () => {
       <table className="tocTable">
         <thead>
           <tr>
-            <th className="tocTh" style={{ width: "34%" }}>
-              Topics
-            </th>
-            <th className="tocTh" style={{ width: "66%" }}>
-              Contains
-            </th>
+            <th className="tocTh" style={{ width: "34%" }}>Topics</th>
+            <th className="tocTh" style={{ width: "66%" }}>Contains</th>
           </tr>
         </thead>
 
         <tbody>
           {pages.map((page, i) => (
-            <tr key={page.name} className={i % 2 === 1 ? "tocRowAlt" : undefined}>
+            <tr key={`${page.name}-${i}`} className={i % 2 === 1 ? "tocRowAlt" : undefined}>
               <td className="tocTd" data-label="Topics">
                 <NavLink to={page.path} className="tocTopicLink">
                   {page.name}

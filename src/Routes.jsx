@@ -11,7 +11,8 @@ import {
     AboutMe as AboutMePage,
     Sports as SportsPage,
     Academics as AcademicsPage,
-    TableofContents as TableofContentsPage
+    TableofContents as TableofContentsPage,
+    Resume as ResumePage,
 } from "./pages";
 
 const Layout = ({ children }) => (
@@ -58,6 +59,7 @@ const Layout = ({ children }) => (
       <NavLink
         to="/academics"
         style={({ isActive }) => ({
+          marginRight: 12,
           fontWeight: isActive ? 700 : 400,
           textDecoration: isActive ? "underline" : "none",
           color:"#ffffff"
@@ -65,6 +67,16 @@ const Layout = ({ children }) => (
       >
         Academics
       </NavLink>
+            <NavLink
+        to="/resume"
+        style={({ isActive }) => ({
+          fontWeight: isActive ? 700 : 400,
+          textDecoration: isActive ? "underline" : "none",
+          color:"white"
+        })}
+        >
+        Resume
+      </NavLink>    
     </nav>
 
     <main style={{ padding: 16 }}>{children}</main>
@@ -81,6 +93,7 @@ export default function Routes(){
           {/* <Route path="/about-me" element={<AboutMePage />} /> */}
           <Route path="/sports" element={<SportsPage />} />
           <Route path="/academics" element={<AcademicsPage />} />
+          <Route path="/resume" element={<ResumePage />} />
           <Route path="*" element={<Navigate to="/" replace />} />
         </RrdRoutes>
       </Layout>
