@@ -40,20 +40,34 @@ const Sports = () => {
           letter-spacing: .2px;
         }
 
-        .sp-photoRow{
-          display:flex;
-          gap:20px;
+        /* 3 photos per row */
+        .sp-photoRow,
+        .sp-photoRowBottom{
+          display:grid;
+          grid-template-columns: repeat(3, minmax(0, 1fr));
+          gap:16px;
           margin-bottom:22px;
-          flex-wrap:wrap;
+        }
+
+        /* Frame makes every image the SAME displayed size */
+        .sp-photoCard{
+          width:100%;
+          aspect-ratio: 4 / 3; /* change this to match BigMike.png's shape if needed */
+          border-radius:14px;
+          border:2px solid rgba(255,255,255,0.25);
+          overflow:hidden;
+          display:flex;
+          align-items:center;
+          justify-content:center;
+          background: rgba(255,255,255,0.04);
         }
 
         .sp-photo{
-          flex:1 1 260px;
           width:100%;
-          height:220px;
-          object-fit:cover;
-          border-radius:16px;
-          border:2px solid rgba(255,255,255,0.25);
+          height:100%;
+          display:block;
+          object-fit:contain; /* full image visible */
+          object-position:center;
         }
 
         .sp-tableWrap{
@@ -89,20 +103,18 @@ const Sports = () => {
           font-size:clamp(16px, 2.4vw, 36px);
         }
 
-        .sp-photoRowBottom{
-          display:flex;
-          gap:20px;
-          margin-top:22px;
-          flex-wrap:wrap;
-        }
-
         @media (max-width: 900px){
           .sp-container{ padding:24px; }
-          .sp-photo{ height:180px; border-radius:14px; }
+
+          .sp-photoRow,
+          .sp-photoRowBottom{
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap:12px;
+          }
+
           .sp-th, .sp-td{ padding:16px 16px; }
         }
 
-        /* phone: align Sport + Seasons side-by-side inside each row card */
         @media (max-width: 640px){
           .sp-container{ padding:16px; }
 
@@ -112,16 +124,15 @@ const Sports = () => {
             line-height: 1.05;
           }
 
-          .sp-photoRow, .sp-photoRowBottom{
+          .sp-photoRow,
+          .sp-photoRowBottom{
+            grid-template-columns: 1fr;
             gap:12px;
             margin-bottom: 14px;
             margin-top: 14px;
           }
 
-          .sp-photo{
-            flex:1 1 100%;
-            height:auto;
-            aspect-ratio: 16 / 9;
+          .sp-photoCard{
             border-radius:18px;
             border:1px solid rgba(255,255,255,0.18);
             box-shadow: 0 10px 30px rgba(0,0,0,0.35);
@@ -188,7 +199,9 @@ const Sports = () => {
 
         <div className="sp-photoRow">
           {photos.map((p) => (
-            <img key={p.alt} src={p.src} alt={p.alt} className="sp-photo" />
+            <div key={p.alt} className="sp-photoCard">
+              <img src={p.src} alt={p.alt} className="sp-photo" />
+            </div>
           ))}
         </div>
 
@@ -196,12 +209,8 @@ const Sports = () => {
           <table className="sp-table">
             <thead>
               <tr>
-                <th className="sp-th" style={{ width: "40%" }}>
-                  Sport
-                </th>
-                <th className="sp-th" style={{ width: "60%" }}>
-                  Seasons
-                </th>
+                <th className="sp-th" style={{ width: "40%" }}>Sport</th>
+                <th className="sp-th" style={{ width: "60%" }}>Seasons</th>
               </tr>
             </thead>
 
@@ -225,12 +234,9 @@ const Sports = () => {
             .slice()
             .reverse()
             .map((p) => (
-              <img
-                key={p.alt + "-bottom"}
-                src={p.src}
-                alt={p.alt}
-                className="sp-photo"
-              />
+              <div key={p.alt + "-bottom"} className="sp-photoCard">
+                <img src={p.src} alt={p.alt} className="sp-photo" />
+              </div>
             ))}
         </div>
       </div>

@@ -50,11 +50,14 @@ const Academics = () => {
           flex-wrap:wrap;
         }
 
+        /* FIX: show full image (no cropping) */
         .ac-photo{
           flex:1 1 260px;
           width:100%;
           height:220px;
-          object-fit:cover;
+          object-fit:contain;
+          object-position:center;
+          background: rgba(255,255,255,0.06);
           border-radius:16px;
           border:2px solid rgba(255,255,255,0.25);
         }
@@ -121,10 +124,14 @@ const Academics = () => {
             margin-top: 14px;
           }
 
+          /* FIX: keep full image on mobile too */
           .ac-photo{
             flex:1 1 100%;
             height:auto;
             aspect-ratio: 16 / 9;
+            object-fit:contain;
+            object-position:center;
+            background: rgba(255,255,255,0.06);
             border-radius:18px;
             border:1px solid rgba(255,255,255,0.18);
             box-shadow: 0 10px 30px rgba(0,0,0,0.35);
